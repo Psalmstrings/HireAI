@@ -8,6 +8,8 @@ export default function Results(){
   const [candidates,setCandidates] = useState([]);
   const [loading,setLoading] = useState(true);
 
+  const API_URL = import.meta.env.VITE_API;
+
   useEffect(()=>{
 
     const fetchResults = async () => {
@@ -18,7 +20,7 @@ export default function Results(){
         const token = localStorage.getItem("token");
 
         const res = await axios.get(
-          `http://hirenaija.runasp.net/api/bulkscreening/session/${sessionId}`,
+          `${API_URL}/bulkscreening/session/${sessionId}`,
           {
             headers:{
               Authorization:`Bearer ${token}`

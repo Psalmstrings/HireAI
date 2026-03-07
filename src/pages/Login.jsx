@@ -8,9 +8,12 @@ export default function Login() {
   const navigate = useNavigate();
 
   const [email,setEmail] = useState("");
+  const [username,setUsername] = useState("");
   const [password,setPassword] = useState("");
   const [loading,setLoading] = useState(false);
   const [error,setError] = useState("");
+
+  const API_URL = import.meta.env.VITE_API;
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -21,9 +24,9 @@ export default function Login() {
     try {
 
       const res = await axios.post(
-        "http://hirenaija.runasp.net/api/auth/login",
+        `${API_URL}/auth/login`,
         {
-          email: email,
+          username: username,
           password: password
         }
       );
@@ -55,11 +58,18 @@ export default function Login() {
 
         <form onSubmit={handleLogin}>
 
-          <input
+          {/* <input
             type="email"
             placeholder="Email Address"
             value={email}
             onChange={(e)=>setEmail(e.target.value)}
+            required
+          /> */}
+          <input
+            type="username"
+            placeholder="Username"
+            value={username}
+            onChange={(e)=>setUsername(e.target.value)}
             required
           />
 
