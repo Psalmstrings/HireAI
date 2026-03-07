@@ -84,7 +84,7 @@ export default function Dashboard() {
 
       <div className="main">
 
-        <h1>AI Candidate Screening</h1>
+        <h1>Candidate Screening</h1>
 
         <input
           placeholder="Job Title"
