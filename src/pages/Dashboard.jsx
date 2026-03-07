@@ -14,7 +14,7 @@ export default function Dashboard() {
   const [loading,setLoading] = useState(false);
   const [error,setError] = useState("");
 
-  const API_URL = import.meta.env.VITE_API;
+  const API_URL = import.meta.env.VITE_API || "http://hirenaija.runasp.net/api";
 
   const handleFileChange = (e) => {
 
@@ -52,7 +52,7 @@ export default function Dashboard() {
       const token = localStorage.getItem("token");
 
       const res = await axios.post(
-        `${API_URL}/bulkscreening/upload`,
+        `http://hirenaija.runasp.net/api/bulkscreening/upload`,
         formData,
         {
           headers:{
