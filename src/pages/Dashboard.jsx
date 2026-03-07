@@ -8,29 +8,24 @@ export default function Dashboard() {
 
   const navigate = useNavigate();
 
-  const [jobTitle,setJobTitle] = useState("");
-  const [description,setDescription] = useState("");
-  const [files,setFiles] = useState([]);
-  const [loading,setLoading] = useState(false);
-  const [error,setError] = useState("");
-
-  const API_URL = import.meta.env.VITE_API || "http://hirenaija.runasp.net/api";
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [cvs, setCvs] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleFileChange = (e) => {
-
     const selectedFiles = Array.from(e.target.files);
-
     if(selectedFiles.length > 5){
       alert("Maximum of 5 CVs allowed");
       return;
     }
-
-    setFiles(selectedFiles);
+    setCvs(selectedFiles);
   };
 
   const runScreening = async () => {
 
-    if(!jobTitle || !description || files.length === 0){
+    if(!title || !description || cvs.length === 0){
       setError("Please fill all fields and upload CVs");
       return;
     }
@@ -39,39 +34,39 @@ export default function Dashboard() {
     setError("");
 
     try{
-
       const formData = new FormData();
 
-      formData.append("jobTitle",jobTitle);
-      formData.append("jobDescription",description);
+      // Send fields with correct keys expected by backend
+      formData.append("title", title);
+      formData.append("description", description);
 
-      files.forEach(file=>{
-        formData.append("files",file);
+      cvs.forEach(file=>{
+        formData.append("cvs", file); // Backend expects 'cvs' as array
       });
 
       const token = localStorage.getItem("token");
 
       const res = await axios.post(
-        `http://hirenaija.runasp.net/api/bulkscreening/upload`,
+        "https://hirenaija.runasp.net/api/bulkscreening/upload",
         formData,
         {
           headers:{
-            "Content-Type":"multipart/form-data",
-            Authorization:`Bearer ${token}`
+            // Let Axios handle multipart/form-data boundaries
+            Authorization: `Bearer ${token}`
           }
         }
       );
 
-      console.log(res.data);
+      console.log("Upload response:", res.data);
+
+      // Save sessionId for Results page
       localStorage.setItem("sessionId", res.data.sessionId);
 
       navigate("/results");
 
     }catch(err){
-
       console.log(err);
       setError("Screening failed. Please try again.");
-
     }
 
     setLoading(false);
@@ -79,7 +74,6 @@ export default function Dashboard() {
 
   return (
     <div className="layout">
-
       <Sidebar />
 
       <div className="main">
@@ -89,8 +83,8 @@ export default function Dashboard() {
         <input
           placeholder="Job Title"
           className="input"
-          value={jobTitle}
-          onChange={(e)=>setJobTitle(e.target.value)}
+          value={title}
+          onChange={(e)=>setTitle(e.target.value)}
         />
 
         <textarea
@@ -102,21 +96,18 @@ export default function Dashboard() {
         />
 
         <div className="upload">
-
           <input
             type="file"
             multiple
             accept=".pdf,.doc,.docx"
             onChange={handleFileChange}
           />
-
           <p>Upload up to 5 CVs</p>
-
         </div>
 
-        {files.length > 0 && (
+        {cvs.length > 0 && (
           <div className="file-list">
-            {files.map((file,index)=>(
+            {cvs.map((file,index)=>(
               <p key={index}>{file.name}</p>
             ))}
           </div>
@@ -134,7 +125,6 @@ export default function Dashboard() {
         {loading && <Loader />}
 
       </div>
-
     </div>
   );
 }
