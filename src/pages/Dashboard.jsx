@@ -4,6 +4,8 @@ import axios from "axios";
 import Sidebar from "../components/Sidebar";
 import Loader from "../components/Loader";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 export default function Dashboard() {
 
   const navigate = useNavigate();
@@ -46,8 +48,7 @@ export default function Dashboard() {
 
       const token = localStorage.getItem("token");
 
-      const res = await axios.post(
-        "https://hirenaija.runasp.net/api/bulkscreening/upload",
+      const res = await axios.post(`${API_URL}/bulkscreening/upload`,
         formData,
         {
           headers:{
