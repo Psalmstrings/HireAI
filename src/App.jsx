@@ -5,6 +5,8 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Results from "./pages/Results";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Signup from "./pages/Signup";
+import HistoryResults from "./pages/Historypage";
 
 function App() {
 
@@ -15,6 +17,7 @@ function App() {
 
         <Route path="/" element={<Homepage />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
 
         <Route
           path="/dashboard"
@@ -30,6 +33,15 @@ function App() {
           element={
             <ProtectedRoute>
               <Results />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/history"
+          element={
+            <ProtectedRoute>
+              <HistoryResults />
             </ProtectedRoute>
           }
         />

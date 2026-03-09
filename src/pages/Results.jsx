@@ -149,10 +149,6 @@ export default function Results() {
 
             <h3 className="green-text">● Highly Suitable</h3>
 
-            {suitable.length === 0 && (
-              <div className="empty">No highly suitable candidates</div>
-            )}
-
             {suitable.map((c) => (
               <CandidateCard
                 key={c.id}

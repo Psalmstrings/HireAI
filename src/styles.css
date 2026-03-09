@@ -702,3 +702,66 @@ gap:10px;
 }
 
 }
+
+.history-search{
+margin-bottom:30px;
+}
+
+.search-box{
+display:flex;
+gap:10px;
+margin-top:10px;
+flex-wrap:wrap;
+}
+
+.search-box input{
+flex:1;
+min-width:220px;
+padding:10px;
+border:1px solid #ddd;
+border-radius:6px;
+}
+
+.search-box button{
+background:#2563eb;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:6px;
+cursor:pointer;
+}
+
+.history-results{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+}
+
+.history-card{
+background:white;
+border:1px solid #eee;
+border-radius:10px;
+padding:18px;
+box-shadow:0 2px 6px rgba(0,0,0,0.05);
+}
+
+.card-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:10px;
+}
+
+.session-id{
+font-size:12px;
+color:#6b7280;
+}
+
+.empty{
+color:#777;
+}
+
+.error{
+color:red;
+margin-top:10px;
+}
