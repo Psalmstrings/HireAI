@@ -7,7 +7,7 @@ export default function Sidebar() {
 
       <nav>
         <Link to="/dashboard">Dashboard</Link>
-        <Link to="/results">Results</Link>
+        {/* <Link to="/results">Results</Link> */}
         <Link to="/history">History</Link>
       </nav>
     </div>

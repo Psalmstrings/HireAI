@@ -63,7 +63,7 @@ export default function Dashboard() {
       // Save sessionId for Results page
       localStorage.setItem("sessionId", res.data.sessionId);
 
-      navigate("/results");
+      navigate("/history");
 
     }catch(err){
       console.log(err);
