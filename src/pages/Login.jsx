@@ -53,7 +53,7 @@ export default function Login() {
 
       <div className="login-box">
 
-        <h2>HireNaija AI Recruiter</h2>
+        <h2>HireNaija AI</h2>
         <p className="login-sub">Recruit smarter with AI powered screening</p>
 
         <form onSubmit={handleLogin}>
@@ -83,10 +83,17 @@ export default function Login() {
 
           {error && <p className="error">{error}</p>}
 
-          <button type="submit">
+          <button type="submit" className="login-button">
             {loading ? "Signing in..." : "Login"}
           </button>
 
+          {/* <button
+            type="button"
+            className="close-btn"
+            onClick={() => navigate("/")}
+          >
+            Home
+          </button> */}
         </form>
 
       </div>

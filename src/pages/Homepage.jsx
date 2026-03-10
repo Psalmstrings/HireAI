@@ -1,139 +1,125 @@
-import { Link } from "react-router-dom";
-import "../styles.css";
+import { useState } from "react";
+import "../homepage.css";
+import Login from "./Login";
 
-export default function Homepage() {
+export default function LandingPage() {
+  const [showLogin, setShowLogin] = useState(false);
+
   return (
-    <div className="home">
+    <div className="landing">
 
       {/* NAVBAR */}
       <nav className="nav">
         <h2 className="logo">HireNaija AI</h2>
 
         <div className="nav-links">
-          <Link to="/" className="home">Home</Link>
-          <Link to="/login" className="login-btn">Login</Link>
+          <button className="login-btn" onClick={() => setShowLogin(true)}>
+            Login
+          </button>
         </div>
       </nav>
 
 
       {/* HERO SECTION */}
-      <section className="hero-section">
+      <section className="hero">
 
+        {/* Left text */}
         <div className="hero-text">
-          <h1>
-            AI Powered <span>Candidate Screening</span>
+          <h1 className="hero-title">
+            AI-Powered  
+            <span> Candidate Screening</span>
           </h1>
 
-          <p>
-            Instantly analyze and rank candidates using AI. 
-            Hire faster, smarter and eliminate manual CV screening.
+          <p className="hero-sub">
+            Instantly analyze, rank and match candidates using smart AI.
+            Speed up hiring and eliminate manual CV review.
           </p>
 
-          <Link to="/login" className="hero-btn">
+          <button className="hero-cta" onClick={() => setShowLogin(true)}>
             Start Screening
-          </Link>
+          </button>
         </div>
 
-        <div className="hero-image">
+
+        {/* Right mock card */}
+        <div className="hero-mock">
           <div className="mock-card">
             <h3>AI Screening Results</h3>
-            <p>React Developer</p>
+            <p className="role">Frontend Developer</p>
 
-            <div className="score green">John Doe — 82%</div>
-            <div className="score yellow">Mary James — 65%</div>
-            <div className="score red">Paul Smith — 30%</div>
+            <div className="score green">Samuel — 92%</div>
+            <div className="score yellow">Ada — 68%</div>
+            <div className="score red">Tunde — 31%</div>
           </div>
         </div>
 
+        {/* Floating background shapes */}
+        <div className="shape shape1"></div>
+        <div className="shape shape2"></div>
+        <div className="shape shape3"></div>
       </section>
 
 
-      {/* FEATURES */}
+      {/* FEATURES SECTION */}
       <section className="features">
-
-        <h2>Why Recruiters Use HireNaija AI</h2>
+        <h2>Why HireNaija AI?</h2>
 
         <div className="feature-grid">
 
           <div className="feature-card">
             <h3>⚡ Instant Screening</h3>
-            <p>
-              Upload CVs and let AI instantly rank candidates based on job requirements.
-            </p>
+            <p>Upload CVs and let AI evaluate them instantly.</p>
           </div>
 
           <div className="feature-card">
             <h3>🧠 Smart AI Matching</h3>
-            <p>
-              Our AI extracts skills, keywords and experience from resumes automatically.
-            </p>
+            <p>Our AI extracts skills, experience and keywords automatically.</p>
           </div>
 
           <div className="feature-card">
-            <h3>📊 Candidate Ranking</h3>
-            <p>
-              Automatically categorize applicants into Suitable, Partially Suitable and Not Suitable.
-            </p>
+            <h3>📊 Ranked Candidates</h3>
+            <p>Instant suitability categorization — Best, Fair, Poor.</p>
           </div>
 
         </div>
-
-      </section>
-
-
-      {/* HOW IT WORKS */}
-
-      <section className="how">
-
-        <h2>How It Works</h2>
-
-        <div className="steps">
-
-          <div className="step">
-            <span>1</span>
-            <h3>Upload Job Description</h3>
-            <p>Paste your job requirements.</p>
-          </div>
-
-          <div className="step">
-            <span>2</span>
-            <h3>Upload CVs</h3>
-            <p>Add up to 5 resumes for screening.</p>
-          </div>
-
-          <div className="step">
-            <span>3</span>
-            <h3>AI Screening</h3>
-            <p>Our AI analyzes and ranks candidates instantly.</p>
-          </div>
-
-        </div>
-
       </section>
 
 
       {/* CTA */}
-
       <section className="cta">
-
         <h2>Hire Smarter With AI</h2>
+        <p>Let AI do the heavy work. Hire better in minutes.</p>
 
-        <p>
-          Stop wasting hours reviewing resumes. Let AI find the best candidates for you.
-        </p>
-
-        <Link to="/login" className="cta-btn">
+        <button className="cta-btn" onClick={() => setShowLogin(true)}>
           Get Started
-        </Link>
-
+        </button>
       </section>
 
 
       {/* FOOTER */}
-
       <footer className="footer">
-        <p>© 2026 HireNaija AI Recruiter</p>
+        <p>© 2026 HireNaija AI</p>
       </footer>
+
+
+      {/* LOGIN POPUP */}
+        {showLogin && (
+          <div className="login-modal">
+            <div className="login-box login-fullscreen">
+              
+              {/* Close Button */}
+              <span className="close-modal" onClick={() => setShowLogin(false)}>
+                ✕
+              </span>
+
+              {/* Render your existing Login page */}
+              <Login />
+
+              
+
+            </div>
+          </div>
+        )}
 
     </div>
   );
