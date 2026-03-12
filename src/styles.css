@@ -125,7 +125,7 @@ display:none;
   width: 100%;
   background: linear-gradient(135deg, #4e5bff 0%, #a387ff 100%);
   display: flex;
-  justify-content: center;
+  justify-content: right;
   align-items: center;
   padding: 20px;
 
@@ -154,7 +154,7 @@ display:none;
 
 .login-container::after {
   background: #7ae1ff;
-  bottom: -100px;
+  bottom: -300px;
   right: -40px;
 }
 
@@ -179,7 +179,7 @@ display:none;
 
 /* LOGIN BOX (GLASS EFFECT) */
 .login-box {
-  width: 380px;
+  width: 450px;
   background: rgba(255,255,255,0.15);
   backdrop-filter: blur(18px);
   border-radius: 20px;
@@ -188,7 +188,7 @@ display:none;
 
   text-align: center;
   color: white;
-
+  /* align-items: right; */
   animation: fadeIn 1s ease forwards, slideUp .8s ease forwards;
   transform: translateY(30px);
   opacity: 0;
