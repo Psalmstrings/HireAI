@@ -306,3 +306,155 @@ body, html {
     padding: 60px 20px;
   }
 }
+
+.dashboard {
+  display: flex;
+  background: #f4f6ff;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+}
+
+
+.menu {
+  margin-top: 40px;
+  list-style: none;
+  padding: 0;
+}
+
+.menu li {
+  padding: 14px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.menu li:hover,
+.menu .active {
+  background: rgba(255,255,255,0.25);
+}
+
+.logout {
+  text-align: center;
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+
+
+/* CONTENT AREA */
+.content {
+  flex: 1;
+  padding: 40px;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 800;
+}
+
+
+
+/* TOP STATS */
+.stats-grid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+}
+
+.stat-card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-card h3 {
+  font-size: 16px;
+  color: #555;
+}
+
+.stat-card p {
+  font-size: 32px;
+  font-weight: 800;
+  margin-top: 10px;
+}
+
+
+
+/* CHARTS */
+.charts {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.chart-card {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+
+
+/* TABLE */
+.table-card {
+  margin-top: 40px;
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
+
+th, td {
+  padding: 14px;
+  text-align: left;
+  font-size: 15px;
+  border-bottom: 1px solid #eee;
+}
+
+.green { color: #0b8f40; font-weight: 700; }
+.yellow { color: #c49d00; font-weight: 700; }
+.red { color: #d62828; font-weight: 700; }
+
+
+
+/* RESPONSIVE */
+@media (max-width: 1000px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .charts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    display: none;
+  }
+
+  .content {
+    padding: 20px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

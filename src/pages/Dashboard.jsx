@@ -1,131 +1,141 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import "../homepage.css";
 import Sidebar from "../components/Sidebar";
-import Loader from "../components/Loader";
 
-const API_URL = import.meta.env.VITE_API_URL;
+// Chart.js
+import { Bar, Doughnut } from "react-chartjs-2";
+import { Chart as ChartJS, BarElement, ArcElement, CategoryScale, LinearScale, Tooltip, Legend } from "chart.js";
+
+ChartJS.register(BarElement, ArcElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 export default function Dashboard() {
 
-  const navigate = useNavigate();
+  const [stats] = useState({
+    totalScreened: 42,
+    suitable: 18,
+    partiallySuitable: 12,
+    notSuitable: 12,
+  });
 
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [cvs, setCvs] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleFileChange = (e) => {
-    const selectedFiles = Array.from(e.target.files);
-    if(selectedFiles.length > 5){
-      alert("Maximum of 5 CVs allowed");
-      return;
-    }
-    setCvs(selectedFiles);
+  const barData = {
+    labels: ["Suitable", "Partial", "Not Suitable"],
+    datasets: [
+      {
+        label: "Candidates",
+        data: [stats.suitable, stats.partiallySuitable, stats.notSuitable],
+        backgroundColor: ["#4e5bff", "#ffda6b", "#ff6b6b"],
+        borderRadius: 10,
+      },
+    ],
   };
 
-  const runScreening = async () => {
-
-    if(!title || !description || cvs.length === 0){
-      setError("Please fill all fields and upload CVs");
-      return;
-    }
-
-    setLoading(true);
-    setError("");
-
-    try{
-      const formData = new FormData();
-
-      // Send fields with correct keys expected by backend
-      formData.append("title", title);
-      formData.append("description", description);
-
-      cvs.forEach(file=>{
-        formData.append("cvs", file); // Backend expects 'cvs' as array
-      });
-
-      const token = localStorage.getItem("token");
-
-      const res = await axios.post(`${API_URL}/bulkscreening/upload`,
-        formData,
-        {
-          headers:{
-            // Let Axios handle multipart/form-data boundaries
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-
-      console.log("Upload response:", res.data);
-
-      // Save sessionId for Results page
-      localStorage.setItem("sessionId", res.data.sessionId);
-
-      navigate("/history");
-
-    }catch(err){
-      console.log(err);
-      setError("Screening failed. Please try again.");
-    }
-
-    setLoading(false);
+  const doughnutData = {
+    labels: ["Suitable", "Partial", "Not Suitable"],
+    datasets: [
+      {
+        data: [stats.suitable, stats.partiallySuitable, stats.notSuitable],
+        backgroundColor: ["#4e5bff", "#ffda6b", "#ff6b6b"],
+      },
+    ],
   };
 
   return (
-    <div className="layout">
+    <div className="dashboard">
+
       <Sidebar />
+      
 
-      <div className="main">
+      {/* MAIN CONTENT */}
+      <main className="content">
 
-        <h1>Candidate Screening</h1>
+        <h1 className="title">AI Screening Insights</h1>
 
-        <input
-          placeholder="Job Title"
-          className="input"
-          value={title}
-          onChange={(e)=>setTitle(e.target.value)}
-        />
+        {/* TOP STATS */}
+        <div className="stats-grid">
 
-        <textarea
-          placeholder="Paste Job Description"
-          rows="6"
-          className="textarea"
-          value={description}
-          onChange={(e)=>setDescription(e.target.value)}
-        />
+          <div className="stat-card">
+            <h3>Total Screened</h3>
+            <p>{stats.totalScreened}</p>
+          </div>
 
-        <div className="upload">
-          <input
-            type="file"
-            multiple
-            accept=".pdf,.doc,.docx"
-            onChange={handleFileChange}
-          />
-          <p>Upload up to 5 CVs</p>
+          <div className="stat-card">
+            <h3>Suitable</h3>
+            <p>{stats.suitable}</p>
+          </div>
+
+          <div className="stat-card">
+            <h3>Partially Suitable</h3>
+            <p>{stats.partiallySuitable}</p>
+          </div>
+
+          <div className="stat-card">
+            <h3>Not Suitable</h3>
+            <p>{stats.notSuitable}</p>
+          </div>
+
         </div>
 
-        {cvs.length > 0 && (
-          <div className="file-list">
-            {cvs.map((file,index)=>(
-              <p key={index}>{file.name}</p>
-            ))}
+
+
+        {/* CHARTS */}
+        <div className="charts">
+
+          <div className="chart-card">
+            <h3>Candidate Distribution</h3>
+            <Bar data={barData} />
           </div>
-        )}
 
-        {error && <p className="error">{error}</p>}
+          <div className="chart-card">
+            <h3>Suitability Ratio</h3>
+            <Doughnut data={doughnutData} />
+          </div>
 
-        <button
-          className="run-btn"
-          onClick={runScreening}
-        >
-          Run AI Screening
-        </button>
+        </div>
 
-        {loading && <Loader />}
 
-      </div>
+
+        {/* RECENT TABLE */}
+        <div className="table-card">
+          <h3>Recent Screening Results</h3>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Score</th>
+                <th>Suitability</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Samuel</td>
+                <td>Frontend Dev</td>
+                <td>92%</td>
+                <td className="green">Suitable</td>
+              </tr>
+
+              <tr>
+                <td>Ada</td>
+                <td>UI Designer</td>
+                <td>68%</td>
+                <td className="yellow">Partial</td>
+              </tr>
+
+              <tr>
+                <td>Tunde</td>
+                <td>Backend Dev</td>
+                <td>31%</td>
+                <td className="red">Not Suitable</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+      </main>
+
     </div>
   );
 }
